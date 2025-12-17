@@ -3,10 +3,80 @@
 #include "Player/AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include  "EnhancedInputComponent.h"
+#include "Interaction/EnemyInterface.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
+}
+
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace();
+}
+
+// 마우스 커서 Hit 되는곳 감지
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	if (!CursorHit.bBlockingHit) return;
+
+	LastActor = ThisActor;
+	ThisActor = CursorHit.GetActor();
+	//T ScriptInterface를 사용하면 위처럼 캐스팅안하고 사용가능
+	// Cast<IEnemyInterface>(CursorHit.GetActor());
+
+	/**
+	 * 라인트레이스 커서 시나리오
+	 * A. LastActor = null && ThisActor = null
+	 *		- 아무것고 실행 안함
+	 *	B. LastActor = null && ThisActor = valid
+	 *		- Highlight ThisActor
+	 *	C. LastActor = valid && ThisActor = null
+	 *		- UnHighLight LastActor
+	 *	D. 양쪽다 유효(Valid) 하지만 LastActor != ThisActor 일때
+	 *		- UnHighLight LastActor, HightLight ThisActor
+	 *	E. 양쪽다 유효하고 LastActor == ThisActor 일때
+	 *		- 아무것도 안해도됨
+	 */
+
+	if (LastActor == nullptr)
+	{
+		if (ThisActor != nullptr)
+		{
+			// Case B
+			ThisActor->HighlightActor();
+		}
+		else
+		{
+			// Case A 양쪽다 유효하지 않을때 아무것도 안함
+		}
+	}
+	else   // LastActor = 유효할때 
+	{
+		if (ThisActor == nullptr)
+		{
+			// Case C
+			LastActor->UnhighlightActor();
+		}
+		else // 양쪽다 유효하다면 ~ 
+		{
+			if (LastActor != ThisActor)
+			{
+				// Case D
+				LastActor->UnhighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				// Case E - 아무것도 안함
+			}
+		}
+	}
 }
 
 void AAuraPlayerController::BeginPlay()
