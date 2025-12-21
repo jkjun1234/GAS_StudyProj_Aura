@@ -27,7 +27,7 @@ void AAuraPlayerController::CursorTrace()
 
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
-	//T ScriptInterface를 사용하면 위처럼 캐스팅안하고 사용가능
+	// TScriptInterface를 사용하면 위처럼 캐스팅안하고 사용가능
 	// Cast<IEnemyInterface>(CursorHit.GetActor());
 
 	/**
