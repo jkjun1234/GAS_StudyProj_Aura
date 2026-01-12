@@ -1,5 +1,6 @@
 #include "Character/AuraEnemy.h"
 
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Aura/Aura.h"
 
 /*
@@ -11,6 +12,15 @@ AAuraEnemy::AAuraEnemy()
 {
 	// 라인트레이스에 감지되기 위해 해당 콜리전을 Block처리해준다.
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+	// 적 캐릭터에서 사용하기 위한 어빌리티 설정
+	// 플레이어 캐릭터는 플레이어 스테이트에서 관리
+	// Aura 프로젝트에서 생성한 어빌리티 시스템 생성
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);	// Replicate 설정
+
+	// 적의 속성 세트
+	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");
 }
 
 void AAuraEnemy::HighlightActor()
