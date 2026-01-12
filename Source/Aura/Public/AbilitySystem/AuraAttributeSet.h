@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// AuraAttributeSet.h
 
 #pragma once
 
@@ -6,9 +6,7 @@
 #include "AttributeSet.h"
 #include "AuraAttributeSet.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
