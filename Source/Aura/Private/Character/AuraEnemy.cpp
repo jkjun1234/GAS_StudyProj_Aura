@@ -18,6 +18,8 @@ AAuraEnemy::AAuraEnemy()
 	// Aura 프로젝트에서 생성한 어빌리티 시스템 생성
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);	// Replicate 설정
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	
 
 	// 적의 속성 세트
 	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");

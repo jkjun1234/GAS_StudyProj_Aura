@@ -10,6 +10,7 @@ AAuraPlayerState::AAuraPlayerState()
 	// 플레이어 캐릭터가 관리할 어빌리티 시스템으로 플레이어 스테이트에서 관리
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);	// Replicate 설정
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);	// 1인 플레이에 적합
 
 	// 적의 속성 세트
 	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");
