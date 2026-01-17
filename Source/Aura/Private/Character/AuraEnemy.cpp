@@ -31,7 +31,7 @@ void AAuraEnemy::HighlightActor()
 	
 	// 캐릭터 하이라이트
 	GetMesh()->SetRenderCustomDepth(true);
-	GetMesh()->SetCustomDepthStencilValue(250);
+	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	
 	// 무기 하이라이트
 	Weapon->SetRenderCustomDepth(true);
@@ -42,8 +42,15 @@ void AAuraEnemy::UnhighlightActor()
 {
 	bHighlighted = false;
 	GetMesh()->SetRenderCustomDepth(false);
-	GetMesh()->SetCustomDepthStencilValue(0);
 
 	Weapon->SetRenderCustomDepth(false);
-	Weapon->SetCustomDepthStencilValue(0);
+}
+
+void AAuraEnemy::BeginPlay()
+{
+	Super::BeginPlay();
+
+	check(AbilitySystemComponent);
+	// ASC 초기화 AI 캐릭터는 Pawn시작과 동시에 Owner, Avatar 모두 자기 자신을 넘겨 주면 됨
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
