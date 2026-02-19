@@ -3,6 +3,7 @@
 
 #include "AttributeSet.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AuraAttributeSet.h"
 
 AAuraPlayerState::AAuraPlayerState()
 {
@@ -12,8 +13,8 @@ AAuraPlayerState::AAuraPlayerState()
 	AbilitySystemComponent->SetIsReplicated(true);	// Replicate 설정
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);	// 1인 플레이에 적합
 
-	// 적의 속성 세트
-	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");
+	// AttirbuteSet 생성
+	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AuraAttributeSet");
 	
 	// 네트워크 동기화 속도 높을수록 빠르게 통신
 	SetNetUpdateFrequency(100.f);
