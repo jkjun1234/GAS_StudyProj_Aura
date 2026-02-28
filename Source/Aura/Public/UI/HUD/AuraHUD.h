@@ -1,11 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "AuraHUD.generated.h"
 
+class UOverlayWidgetController;
+class UAttributeSet;
+class UAbilitySystemComponent;
+struct FWidgetControllerParams;
 class UAuraUserWidget;
 /**
  * 
@@ -20,11 +22,22 @@ public:
 	UPROPERTY()
 	TObjectPtr<UAuraUserWidget> OverlayWidget;
 
-protected:
-	virtual void BeginPlay() override;
+	// const 를 통해 WCP 파라미터 값을 보존 &를 통해 WCP 값을 그대로 가져오기.
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+	
+
 
 private:
 	// User위젯 클래스 받을 변수
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UAuraUserWidget> OverlayWidgetClass;	
+	TSubclassOf<UAuraUserWidget> OverlayWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+
+	// WidgetController에 들어갈 WidgetController 클래스 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
 };

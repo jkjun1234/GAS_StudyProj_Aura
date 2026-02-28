@@ -88,10 +88,18 @@ void AAuraPlayerController::BeginPlay()
 	// Subsystem은 싱글톤으로 게임 내 1개만 존재
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
 		GetLocalPlayer());
-	check(Subsystem);
 
-	// IMC(입력 매핑컨텍스트를 에디터에서 가져와 InputSubsystem으로 설정
-	Subsystem->AddMappingContext(AuraInputContext, 0);
+	// 멀티 플레이 경우 해당 부분은 크래쉬가난다. (다른 캐릭터의 플레이어컨트롤러의 서브시스템정보는 없기때문)
+	// check(Subsystem);	
+	// Subsystem->AddMappingContext(AuraInputContext, 0);
+
+	// 멀티플레이어 게임에서도 잘 동작하도록 체크
+	if (Subsystem)
+	{
+		// IMC(입력 매핑컨텍스트를 에디터에서 가져와 InputSubsystem으로 설정
+		Subsystem->AddMappingContext(AuraInputContext, 0);
+	}
+
 
 	bShowMouseCursor = true; // TopDown 방식 게임을 위해 마우스 커서 표시
 	DefaultMouseCursor = EMouseCursor::Default;

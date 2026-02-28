@@ -4,7 +4,9 @@
 
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
+#include "UI/HUD/AuraHUD.h"
 
 
 AAuraCharacter::AAuraCharacter()
@@ -37,6 +39,7 @@ void AAuraCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
+// HUD, ASC, PS, AttributeSet 등 모든 값 초기화
 void AAuraCharacter::InitAbilityActorInfo()
 {
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
@@ -50,4 +53,17 @@ void AAuraCharacter::InitAbilityActorInfo()
 	// 액터정보를 초기화 후 캐릭터 베이스에 있는 ASC 와 AttributeSet을 PlayerState에 있는 것으로 가져온다.
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();
+
+	// Check 로 컨트롤러를 확인하지 않는 이유
+	// 컨트롤러는 멀티플레이 게임일경우 다른 캐릭터의 컨트롤러는 Null을 가지므로
+	// Check를 통해 검사할경우 무조건 크래쉬 나기때문
+	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
+	{
+		// AuraHUD를 가져와 Overlay 위젯을 초기화
+		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
+		{
+			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
+	
 }
