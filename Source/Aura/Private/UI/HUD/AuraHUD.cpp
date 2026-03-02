@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// AuraHUD.cpp
 
 #include "UI/HUD/AuraHUD.h"
 
@@ -37,6 +36,6 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
 	OverlayWidget->SetWidgetController(WidgetController);
-	
+	WidgetController->BroadcastInitialValues();	// 위젯컨트롤러 설정후 초기값 브로드캐스트
 	Widget->AddToViewport();
 }

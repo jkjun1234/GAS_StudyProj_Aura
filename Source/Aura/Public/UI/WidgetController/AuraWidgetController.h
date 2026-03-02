@@ -46,6 +46,9 @@ public:
 	// 위젯컨트롤러 파라미터 설정
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(FWidgetControllerParams WCParams);
+
+	// 초기값 브로드캐스팅 
+	virtual void BroadcastInitialValues();
 	
 protected:
 	// 플레이어 컨트롤러 저장
