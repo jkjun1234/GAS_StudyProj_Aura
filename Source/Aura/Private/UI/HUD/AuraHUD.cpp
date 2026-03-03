@@ -12,6 +12,7 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 		// 위젯 컨트롤러가 널포인터일시 OverlayWIdgetControllerClass를 갖는 새 오브젝트를 만들어 할당해준다.
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependencies();	// 값 변경 적용하는 콜백함수
 
 		return OverlayWidgetController;	// Set하여 오버레이 위젯컨트롤러를 반환
 	}

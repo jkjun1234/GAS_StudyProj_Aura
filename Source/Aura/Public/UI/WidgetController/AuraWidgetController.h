@@ -49,6 +49,9 @@ public:
 
 	// 초기값 브로드캐스팅 
 	virtual void BroadcastInitialValues();
+
+	// 델리게이트에 콜백을 바인딩하는 함수
+	virtual void BindCallbacksToDependencies();
 	
 protected:
 	// 플레이어 컨트롤러 저장

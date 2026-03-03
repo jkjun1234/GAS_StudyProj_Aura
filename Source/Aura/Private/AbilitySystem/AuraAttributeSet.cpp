@@ -7,7 +7,7 @@ UAuraAttributeSet::UAuraAttributeSet()
 {
 	// ATTRIBUTE_ACCESSORS 매크로를 통해 자동으로 사용가능한 초기화 함수
 	// Get,Set 등 값 접근에 필요한 함수도 사용 가능함
-	InitHealth(100.f);
+	InitHealth(50.f);
 	InitMaxHealth(100.f);
 	InitMana(50.f);
 	InitMaxMana(50.f);
