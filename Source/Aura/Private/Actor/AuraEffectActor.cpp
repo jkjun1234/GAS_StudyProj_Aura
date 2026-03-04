@@ -35,6 +35,7 @@ void AAuraEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		// 캡슐화를 깨뜨려서 AttributeSet의 값이 변경되는것을 보고자함 원래는 위험한 행위로 하지말것
 		UAuraAttributeSet* MutableAuraBute = const_cast<UAuraAttributeSet*>(AuraAttributeSet);
 		MutableAuraBute->SetHealth(AuraAttributeSet->GetHealth() + 25.f);
+		MutableAuraBute->SetMana(AuraAttributeSet->GetMana() - 25.f);
 		Destroy();
 	}
 }
