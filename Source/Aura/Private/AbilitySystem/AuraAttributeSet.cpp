@@ -9,7 +9,7 @@ UAuraAttributeSet::UAuraAttributeSet()
 	// Get,Set 등 값 접근에 필요한 함수도 사용 가능함
 	InitHealth(50.f);
 	InitMaxHealth(100.f);
-	InitMana(50.f);
+	InitMana(25.f);
 	InitMaxMana(50.f);
 }
 

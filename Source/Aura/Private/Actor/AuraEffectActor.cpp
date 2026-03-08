@@ -21,11 +21,11 @@ void AAuraEffectActor::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AAuraEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
 	// 1. 타겟의 ASC(Ability System Component) 가져오기
 	// UAbilitySystemBlueprintLibrary를 사용하면 액터가 IAbilitySystemInterface를 구현했는지 자동으로 확인하고 ASC를 반환해 줍니다.
-	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 
 	// 타겟이 ASC를 가지고 있지 않다면 (즉, GAS를 사용하는 액터가 아니라면) 함수를 즉시 종료합니다.
 	if (TargetASC == nullptr) return; 
