@@ -7,6 +7,7 @@
 
 class USphereComponent;
 
+
 // 이펙트 적용 정책으로 해당 이펙트가 적용될때를 설정
 UENUM(BlueprintType)
 enum class EEffectApplicationPolicy : uint8
@@ -78,4 +79,5 @@ protected:
 
 	// 활성화중인 Effect 를 담고있는 핸들러  
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
+
 };
