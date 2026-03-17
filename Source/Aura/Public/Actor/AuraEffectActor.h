@@ -80,4 +80,8 @@ protected:
 	// 활성화중인 Effect 를 담고있는 핸들러  
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 
+	// EffectActor 레벨
+	// 레벨에 따른 효과 적용값(FloatCurve 사용)을 다르게 하기 위해 사용
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+	float ActorLevel =1.f;
 };

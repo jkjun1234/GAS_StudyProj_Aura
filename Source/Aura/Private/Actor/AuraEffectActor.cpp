@@ -47,7 +47,7 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	// GameplayEffect 자체는 변하지 않는 '데이터 템플릿(CDO)'입니다. 이를 타겟에게 실제로 적용하려면 
 	// 레벨(Level)이나 컨텍스트 같은 동적인 정보를 담은 '인스턴스화된 데이터'인 Spec을 만들어야 합니다.
 	// 1.f는 이펙트의 레벨(Level)을 의미하며, 앞서 만든 ContextHandle을 함께 넘겨줍니다.
-	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);
+	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
 	
 	// 5. 타겟에게 Effect 최종 적용
 	// 생성된 Spec 객체를 타겟의 ASC에 실제로 적용합니다.
