@@ -36,5 +36,8 @@ protected:
 	// 속성 집합으로(캐릭터나 객체의 능력치로 HP,MP 공격력 등 을 묶음으로 관리하는 데이터 집합
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
-	
+
+	// ASC의 EffectApplied 델리게이트를 적용하기위해
+	// 캐릭터, 적 구분하여 초기화를 구현하기위해 Virtual로 선언
+	virtual void InitAbilityActorInfo();
 };

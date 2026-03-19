@@ -3,6 +3,7 @@
 #include "Character/AuraCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -50,6 +51,10 @@ void AAuraCharacter::InitAbilityActorInfo()
 	// AvatarActor : 월드에서 보여질 아바타 액터
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 
+	// ASC를 가져와 ActorInfo를 설정
+	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+
+	
 	// 액터정보를 초기화 후 캐릭터 베이스에 있는 ASC 와 AttributeSet을 PlayerState에 있는 것으로 가져온다.
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();

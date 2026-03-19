@@ -25,4 +25,6 @@ public:
 protected:	
 	virtual void BeginPlay() override;	
 
+	// ASC를 가진 액터 초기화
+	virtual void InitAbilityActorInfo() override;
 };

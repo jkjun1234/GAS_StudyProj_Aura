@@ -54,3 +54,11 @@ void AAuraEnemy::BeginPlay()
 	// ASC 초기화 AI 캐릭터는 Pawn시작과 동시에 Owner, Avatar 모두 자기 자신을 넘겨 주면 됨
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
+
+void AAuraEnemy::InitAbilityActorInfo()
+{
+	// ASC 를 가진 액터 초기화
+	
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+}
