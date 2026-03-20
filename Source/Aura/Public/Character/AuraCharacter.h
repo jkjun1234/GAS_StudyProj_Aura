@@ -21,5 +21,6 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 private:
+	// HUD, ASC, PS, AttributeSet 등 모든 값 초기화
 	virtual void InitAbilityActorInfo() override;
 };

@@ -37,7 +37,8 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-	// ASC의 EffectApplied 델리게이트를 적용하기위해
+	// ASC의 EffectApplied 델리게이트를 적용하는 함수 ASC->AbilityActorInfoSet() 을 실행
+	// 기본적인 액터의 초기값을 초기화
 	// 캐릭터, 적 구분하여 초기화를 구현하기위해 Virtual로 선언
 	virtual void InitAbilityActorInfo();
 };

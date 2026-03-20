@@ -40,7 +40,6 @@ void AAuraCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
-// HUD, ASC, PS, AttributeSet 등 모든 값 초기화
 void AAuraCharacter::InitAbilityActorInfo()
 {
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
@@ -53,7 +52,6 @@ void AAuraCharacter::InitAbilityActorInfo()
 
 	// ASC를 가져와 ActorInfo를 설정
 	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
-
 	
 	// 액터정보를 초기화 후 캐릭터 베이스에 있는 ASC 와 AttributeSet을 PlayerState에 있는 것으로 가져온다.
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
