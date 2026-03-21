@@ -19,12 +19,7 @@ void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* Ability
 	FGameplayTagContainer TagContainer;
 	EffectSpec.GetAllAssetTags(TagContainer);
 
-	for (const FGameplayTag& Tag : TagContainer)
-	{
-		// TODO: 태그를 위젯컨트롤러에 전달(브로드캐스트)
-
-		const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-		// 키 값으로 -1을 주는 경우 최신 메세지가 지난 메세지를 가리지않음 
-		GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg );
-	}
+	// 해당 ASC를 가진 액터에 Effect 적용시 AssetTags 를  브로드캐스트
+	//현재 OverlayWdigetController 에서 바인딩하여 확인하고있음
+	EffectAssetTags.Broadcast(TagContainer);
 }

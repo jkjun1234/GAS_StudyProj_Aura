@@ -2,6 +2,8 @@
 
 #include "UI/WidgetController/OverlayWidgetController.h"
 
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
+
 void UOverlayWidgetController::BroadcastInitialValues()
 {
 	// (미션 1.) AttributeSet의 값을 읽어와 최대체력,체력 등 속성값을 초기화 후 전달
@@ -23,23 +25,36 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
 	// Health Attribute 값이 변경될 때 호출되는 델리게이트를 가져옴
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetHealthAttribute())
-		// Health 값이 변경되면 HealthChanged 함수를 실행하도록 등록
-		.AddUObject(this, &UOverlayWidgetController::HealthChanged);
+		                      AuraAttributeSet->GetHealthAttribute())
+	                      // Health 값이 변경되면 HealthChanged 함수를 실행하도록 등록
+	                      .AddUObject(this, &UOverlayWidgetController::HealthChanged);
 
 	// MaxHealth Attribute 값이 변경될 때 호출되는 델리게이트를 가져옴
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetMaxHealthAttribute())
-		// MaxHealth 값이 변경되면 HealthChanged 함수를 실행하도록 등록
-		.AddUObject(this, &UOverlayWidgetController::MaxHealthChanged);
+		                      AuraAttributeSet->GetMaxHealthAttribute())
+	                      // MaxHealth 값이 변경되면 HealthChanged 함수를 실행하도록 등록
+	                      .AddUObject(this, &UOverlayWidgetController::MaxHealthChanged);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetManaAttribute())
-		.AddUObject(this, &UOverlayWidgetController::ManaChanged);
+		                      AuraAttributeSet->GetManaAttribute())
+	                      .AddUObject(this, &UOverlayWidgetController::ManaChanged);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetMaxManaAttribute())
-		.AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+		                      AuraAttributeSet->GetMaxManaAttribute())
+	                      .AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+
+	// ASC 에서 AssetTags를 담는 TagContainer를 브로드 캐스팅하여 해당 람다 함수를 바인딩함
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+		[](const FGameplayTagContainer& AssetTags)
+		{
+			for (const FGameplayTag& Tag : AssetTags)
+			{
+				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
+				// 키 값으로 -1을 주는 경우 최신 메세지가 지난 메세지를 가리지않음 
+				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg );
+			}
+		}
+	);
 }
 
 void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
