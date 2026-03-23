@@ -45,13 +45,18 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
 	// ASC 에서 AssetTags를 담는 TagContainer를 브로드 캐스팅하여 해당 람다 함수를 바인딩함
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
-		[](const FGameplayTagContainer& AssetTags)
+		[this](const FGameplayTagContainer& AssetTags)
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
 				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
 				// 키 값으로 -1을 주는 경우 최신 메세지가 지난 메세지를 가리지않음 
 				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg );
+
+				// 람다의 this 캡쳐를 통해 사용가능
+				// Tag와 일치하는 위젯컨트롤러에서 사용하는 DataTable 의 행을 가져옴
+				// 해당 행을 기반으로 위젯블루프린트에 전달 및 표현 예정
+				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
 			}
 		}
 	);

@@ -4,6 +4,7 @@
 #include "AbilitySystemComponent.h"
 #include "AuraAbilitySystemComponent.generated.h"
 
+// Effect Asset Tag들을 브로드캐스트 하기위한 델리게이트
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/ );
 
 UCLASS()
